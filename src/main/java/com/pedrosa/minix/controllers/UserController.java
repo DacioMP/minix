@@ -3,6 +3,7 @@ package com.pedrosa.minix.controllers;
 import com.pedrosa.minix.controllers.dto.CreateUserDto;
 import com.pedrosa.minix.entities.Role;
 import com.pedrosa.minix.entities.User;
+import com.pedrosa.minix.entities.enums.RoleValue;
 import com.pedrosa.minix.repositories.RoleRepository;
 import com.pedrosa.minix.repositories.UserRepository;
 import jakarta.transaction.Transactional;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class UserController {
@@ -43,7 +43,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<Void> newUser (@RequestBody CreateUserDto dto) {
 
-        var basicRole = roleRepository.findByName(Role.Values.BASIC.name());
+        var basicRole = roleRepository.findByName(RoleValue.BASIC.name());
 
         var userFromDb = userRepository.findByUsername(dto.username());
         if(userFromDb.isPresent()) {
@@ -53,7 +53,7 @@ public class UserController {
         User user = new User();
         user.setUsername(dto.username());
         user.setPassword(passwordEncoder.encode(dto.password()));
-        user.setRoles(Set.of(basicRole));
+        user.getRoles().add(basicRole);
         userRepository.save(user);
 
         return ResponseEntity.ok().build();

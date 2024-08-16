@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_tweet")
@@ -60,5 +61,18 @@ public class Tweet {
 
     public void setTweetId(Long tweetId) {
         this.tweetId = tweetId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tweet tweet = (Tweet) o;
+        return Objects.equals(tweetId, tweet.tweetId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(tweetId);
     }
 }

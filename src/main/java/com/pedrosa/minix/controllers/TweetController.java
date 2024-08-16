@@ -3,8 +3,8 @@ package com.pedrosa.minix.controllers;
 import com.pedrosa.minix.controllers.dto.CreateTweetDto;
 import com.pedrosa.minix.controllers.dto.FeedDto;
 import com.pedrosa.minix.controllers.dto.FeedItemDto;
-import com.pedrosa.minix.entities.Role;
 import com.pedrosa.minix.entities.Tweet;
+import com.pedrosa.minix.entities.enums.RoleValue;
 import com.pedrosa.minix.repositories.TweetRepository;
 import com.pedrosa.minix.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +80,7 @@ public class TweetController {
         var tweet = tweetRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        var isAdmin = user.getRoles().stream().anyMatch(role -> role.getName().equalsIgnoreCase(Role.Values.ADMIN.name()));
+        var isAdmin = user.getRoles().stream().anyMatch(role -> role.getName().equalsIgnoreCase(RoleValue.ADMIN.name()));
 
         if (tweet.getUser().getUserId().equals(UUID.fromString(token.getName())) || isAdmin){
             tweetRepository.deleteById(id);

@@ -1,7 +1,7 @@
 package com.pedrosa.minix.config;
 
-import com.pedrosa.minix.entities.Role;
 import com.pedrosa.minix.entities.User;
+import com.pedrosa.minix.entities.enums.RoleValue;
 import com.pedrosa.minix.repositories.RoleRepository;
 import com.pedrosa.minix.repositories.UserRepository;
 import jakarta.transaction.Transactional;
@@ -10,18 +10,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Set;
 
 @Configuration
 public class AdminUserConfig implements CommandLineRunner {
 
     @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private BCryptPasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public AdminUserConfig(RoleRepository roleRepository,
                            UserRepository userRepository,
@@ -35,7 +34,7 @@ public class AdminUserConfig implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
 
-        var roleAdmin = roleRepository.findByName(Role.Values.ADMIN.name());
+        var roleAdmin = roleRepository.findByName(RoleValue.ADMIN.name());
         var userAdmin = userRepository.findByUsername("admin");
 
         userAdmin.ifPresentOrElse(
@@ -46,12 +45,12 @@ public class AdminUserConfig implements CommandLineRunner {
                     var user = new User();
                     user.setUsername("admin");
                     user.setPassword(passwordEncoder.encode("123"));
-                    user.setRoles(Set.of(roleAdmin));
+                    user.getRoles().add(roleAdmin);
                     userRepository.save(user);
                 }
         );
 
-        var roleBasic = roleRepository.findByName(Role.Values.BASIC.name());
+        var roleBasic = roleRepository.findByName(RoleValue.BASIC.name());
         var userBasic = userRepository.findByUsername("mathews");
 
         userBasic.ifPresentOrElse(
@@ -62,10 +61,9 @@ public class AdminUserConfig implements CommandLineRunner {
                     var user = new User();
                     user.setUsername("mathews");
                     user.setPassword(passwordEncoder.encode("123"));
-                    user.setRoles(Set.of(roleBasic));
+                    user.getRoles().add(roleBasic);
                     userRepository.save(user);
                 }
         );
-
     }
 }

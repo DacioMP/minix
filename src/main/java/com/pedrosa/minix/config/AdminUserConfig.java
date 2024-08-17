@@ -45,7 +45,7 @@ public class AdminUserConfig implements CommandLineRunner {
                     var user = new User();
                     user.setUsername("admin");
                     user.setPassword(passwordEncoder.encode("123"));
-                    user.getRoles().add(roleAdmin);
+                    user.getRoles().add(roleAdmin.get());
                     userRepository.save(user);
                 }
         );
@@ -61,7 +61,7 @@ public class AdminUserConfig implements CommandLineRunner {
                     var user = new User();
                     user.setUsername("mathews");
                     user.setPassword(passwordEncoder.encode("123"));
-                    user.getRoles().add(roleBasic);
+                    user.getRoles().add(roleBasic.get());
                     userRepository.save(user);
                 }
         );

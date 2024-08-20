@@ -72,10 +72,6 @@ public class User implements Serializable {
         return roles;
     }
 
-    public boolean isLoginCorrect(LoginRequestDto loginRequestDto, PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(loginRequestDto.password(), this.password);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

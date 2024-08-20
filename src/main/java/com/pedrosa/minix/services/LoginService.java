@@ -2,10 +2,12 @@ package com.pedrosa.minix.services;
 
 import com.pedrosa.minix.dto.LoginRequestDto;
 import com.pedrosa.minix.entities.Role;
+import com.pedrosa.minix.entities.User;
 import com.pedrosa.minix.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
@@ -30,7 +32,7 @@ public class LoginService {
 
         var user = userRepository.findByUsername(loginRequestDto.username());
 
-        if (user.isEmpty() || !user.get().isLoginCorrect(loginRequestDto, passwordEncoder)) {
+        if (user.isEmpty() || !isLoginCorrect(user.get(), loginRequestDto, passwordEncoder)) {
             throw new BadCredentialsException("user or password invalid");
         }
 
@@ -51,5 +53,9 @@ public class LoginService {
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+    }
+
+    public boolean isLoginCorrect(User user, LoginRequestDto loginRequestDto, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequestDto.password(), user.getPassword());
     }
 }

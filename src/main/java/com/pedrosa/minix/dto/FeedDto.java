@@ -1,4 +1,4 @@
-package com.pedrosa.minix.controllers.dto;
+package com.pedrosa.minix.dto;
 
 import java.util.List;
 

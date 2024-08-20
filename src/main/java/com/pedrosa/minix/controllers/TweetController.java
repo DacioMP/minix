@@ -1,8 +1,8 @@
 package com.pedrosa.minix.controllers;
 
-import com.pedrosa.minix.controllers.dto.CreateTweetDto;
-import com.pedrosa.minix.controllers.dto.FeedDto;
-import com.pedrosa.minix.controllers.dto.FeedItemDto;
+import com.pedrosa.minix.dto.CreateTweetDto;
+import com.pedrosa.minix.dto.FeedDto;
+import com.pedrosa.minix.dto.FeedItemDto;
 import com.pedrosa.minix.services.TweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

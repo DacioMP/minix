@@ -1,7 +1,7 @@
 package com.pedrosa.minix.controllers;
 
-import com.pedrosa.minix.controllers.dto.LoginRequest;
-import com.pedrosa.minix.controllers.dto.LoginResponse;
+import com.pedrosa.minix.dto.LoginRequestDto;
+import com.pedrosa.minix.dto.LoginResponseDto;
 import com.pedrosa.minix.repositories.UserRepository;
 import com.pedrosa.minix.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,13 @@ public class LoginController {
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login (@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponseDto> login (@RequestBody LoginRequestDto loginRequestDto) {
 
-        var jwtValue = loginService.getTokenJwt(loginRequest);
+        var jwtValue = loginService.getTokenJwt(loginRequestDto);
 
         var expiresIn = 300L;
 
-        return ResponseEntity.ok(new LoginResponse(jwtValue, expiresIn));
+        return ResponseEntity.ok(new LoginResponseDto(jwtValue, expiresIn));
 
     }
 }

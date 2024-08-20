@@ -1,6 +1,6 @@
 package com.pedrosa.minix.controllers;
 
-import com.pedrosa.minix.controllers.dto.CreateUserDto;
+import com.pedrosa.minix.dto.CreateUserDto;
 import com.pedrosa.minix.entities.User;
 import com.pedrosa.minix.services.UserService;
 import jakarta.transaction.Transactional;

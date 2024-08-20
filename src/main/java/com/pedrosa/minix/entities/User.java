@@ -1,6 +1,6 @@
 package com.pedrosa.minix.entities;
 
-import com.pedrosa.minix.controllers.dto.LoginRequest;
+import com.pedrosa.minix.dto.LoginRequestDto;
 import jakarta.persistence.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -72,8 +72,8 @@ public class User implements Serializable {
         return roles;
     }
 
-    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(loginRequest.password(), this.password);
+    public boolean isLoginCorrect(LoginRequestDto loginRequestDto, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequestDto.password(), this.password);
     }
 
     @Override

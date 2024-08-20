@@ -1,6 +1,6 @@
 package com.pedrosa.minix.services;
 
-import com.pedrosa.minix.controllers.dto.CreateUserDto;
+import com.pedrosa.minix.dto.CreateUserDto;
 import com.pedrosa.minix.entities.User;
 import com.pedrosa.minix.entities.enums.RoleValue;
 import com.pedrosa.minix.repositories.RoleRepository;

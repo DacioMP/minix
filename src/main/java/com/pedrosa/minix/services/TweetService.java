@@ -1,6 +1,6 @@
 package com.pedrosa.minix.services;
 
-import com.pedrosa.minix.controllers.dto.FeedItemDto;
+import com.pedrosa.minix.dto.FeedItemDto;
 import com.pedrosa.minix.entities.Tweet;
 import com.pedrosa.minix.entities.User;
 import com.pedrosa.minix.entities.enums.RoleValue;

@@ -1,6 +1,6 @@
 package com.pedrosa.minix.services;
 
-import com.pedrosa.minix.controllers.dto.LoginRequest;
+import com.pedrosa.minix.dto.LoginRequestDto;
 import com.pedrosa.minix.entities.Role;
 import com.pedrosa.minix.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +26,11 @@ public class LoginService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public String getTokenJwt(LoginRequest loginRequest) {
+    public String getTokenJwt(LoginRequestDto loginRequestDto) {
 
-        var user = userRepository.findByUsername(loginRequest.username());
+        var user = userRepository.findByUsername(loginRequestDto.username());
 
-        if (user.isEmpty() || !user.get().isLoginCorrect(loginRequest, passwordEncoder)) {
+        if (user.isEmpty() || !user.get().isLoginCorrect(loginRequestDto, passwordEncoder)) {
             throw new BadCredentialsException("user or password invalid");
         }
 
